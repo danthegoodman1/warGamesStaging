@@ -1,9 +1,12 @@
 const fs = require('fs')
 const bodyParser = require('body-parser')
 const express = require('express')
+const request = require('request-promise')
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+
+// Leader Board API
 
 const leaderBoardFile = './leaderBoard.json'
 
@@ -44,11 +47,11 @@ calculateLeaderBoard = () => {
                 tempArray.push(data[e])
             })
             tempArray.sort(compareValues('points', 'desc'))
-            fs.writeFileSync('./leaderBoard.txt', 'War Games Episode 1 Leader Board:\n')
+            fs.writeFileSync('./leaderBoard', 'War Games Episode 1 Leader Board:\n')
             tempArray.forEach((e) => {
-                fs.appendFileSync('./leaderBoard.txt', (e.points === 1) ? `User ${e.username} has ${e.points} point\n` : `User ${e.username} has ${e.points} points\n`)
+                fs.appendFileSync('./leaderBoard', (e.points === 1) ? `User ${e.username} has ${e.points} point\n` : `User ${e.username} has ${e.points} points\n`)
             })
-            resolve(fs.readFileSync('./leaderBoard.txt'))
+            resolve(fs.readFileSync('./leaderBoard'))
         })
     })
 }
@@ -91,6 +94,10 @@ app.route('/leaderBoard/:user')
         })
     }
 })
+
+// Point Calculating Code
+
+fileArray = [{fileName: 'bwfig.txt', fileValue: 'sykmmnoxugszfnlgopkl'}, {fileName: 'dqhic.txt', fileValue: 'xfwydxdwjkzdwmjqkpud'}, {fileName: 'dvhzo.txt', fileValue: 'esgzojlqdifbvbwlrscs'}, {fileName: 'fhlpk.txt', fileValue: 'iypxemtdglaaewaofchk'}, {fileName: 'ghlra.txt', fileValue: 'akghdomkleebcbtuouov'}, {fileName: 'gqbnm.txt', fileValue: 'qgfvftzsscbhwbxehxgq'}, {fileName: 'gvjtb.txt', fileValue: 'zmdyswczahjrudqxjywj'}, {fileName: 'gvrah.txt', fileValue: 'edbdyyykmrvporbztfdw'}, {fileName: 'ijchn.txt', fileValue: 'kaatseyiygzhdkcuqljx'}, {fileName: 'ktgsx.txt', fileValue: 'dcogqcqiqnlbtdppzctr'}, {fileName: 'nnddw.txt', fileValue: 'rrmobualejyiyjegqhch'}, {fileName: 'uodsu.txt', fileValue: 'cryjkzeihfsajxclyxgp'}, {fileName: 'xtixa.txt', fileValue: 'edxcjoqfmnugmgofrapq'}, {fileName: 'ybmvq.txt', fileValue: 'qusxfdxgtrchrcchumap'}, {fileName: 'zovdh.txt', fileValue: 'vemzmtprtmxvwzrgtqyg'}]
 
 app.listen(8080, () => {
     console.log('Listening on port 8080!')
