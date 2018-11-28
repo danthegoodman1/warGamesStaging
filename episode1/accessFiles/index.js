@@ -176,7 +176,7 @@ setInterval(() => {
             console.error(err)
         })
     })
-}, 6000) // Every minute check for points
+}, 60000) // Every minute check for points
 
 app.listen(8080, () => {
     console.log('Listening on port 8080!')
