@@ -18,15 +18,15 @@ Prevent the points API from accessing opponents cat APIs. You are not allowed to
 
 #### Defense:
 
-You must provide API access to this `catWrapper` binary, as well as protect your server. One of the many files in the home directory is the file that the server must be able to access using a GET Request and a POST request. When the service is able to access the file, you gain points. The system randomly chooses a file so that you are unable to hardcode results. For all requests, the response must be the output of the command only. All files should be located in the home directory of your server.
+You must provide API access to this `catWrapper` binary, as well as protect your server. One of the many files in the home directory is the file that the server must be able to access using a GET Request and a POST request. When the service is able to access the file, you gain points. The system randomly chooses a file so that you are unable to hardcode results. For all requests, the response must be the output of the command only. All files should be located in the home directory of your server. **You must run on port 8082**.
 
 For the GET Request, the expected url is as follows:
-`http://{your-ip}:{your-port}/{path-to-file}`
+`http://{your-ip}:8082/{path-to-file}`
 
 For the POST Request, the expected url and body is as follows:
 
 URL:
-`http://{your-ip}:{your-port}/cat`
+`http://{your-ip}:8082/cat`
 
 Body:
 ```js
