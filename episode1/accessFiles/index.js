@@ -97,7 +97,76 @@ app.route('/leaderBoard/:user')
 
 // Point Calculating Code
 
-fileArray = [{fileName: 'bwfig.txt', fileValue: 'sykmmnoxugszfnlgopkl'}, {fileName: 'dqhic.txt', fileValue: 'xfwydxdwjkzdwmjqkpud'}, {fileName: 'dvhzo.txt', fileValue: 'esgzojlqdifbvbwlrscs'}, {fileName: 'fhlpk.txt', fileValue: 'iypxemtdglaaewaofchk'}, {fileName: 'ghlra.txt', fileValue: 'akghdomkleebcbtuouov'}, {fileName: 'gqbnm.txt', fileValue: 'qgfvftzsscbhwbxehxgq'}, {fileName: 'gvjtb.txt', fileValue: 'zmdyswczahjrudqxjywj'}, {fileName: 'gvrah.txt', fileValue: 'edbdyyykmrvporbztfdw'}, {fileName: 'ijchn.txt', fileValue: 'kaatseyiygzhdkcuqljx'}, {fileName: 'ktgsx.txt', fileValue: 'dcogqcqiqnlbtdppzctr'}, {fileName: 'nnddw.txt', fileValue: 'rrmobualejyiyjegqhch'}, {fileName: 'uodsu.txt', fileValue: 'cryjkzeihfsajxclyxgp'}, {fileName: 'xtixa.txt', fileValue: 'edxcjoqfmnugmgofrapq'}, {fileName: 'ybmvq.txt', fileValue: 'qusxfdxgtrchrcchumap'}, {fileName: 'zovdh.txt', fileValue: 'vemzmtprtmxvwzrgtqyg'}]
+const fileArray = [{fileName: 'bwfig.txt', fileValue: 'sykmmnoxugszfnlgopkl'}, {fileName: 'dqhic.txt', fileValue: 'xfwydxdwjkzdwmjqkpud'}, {fileName: 'dvhzo.txt', fileValue: 'esgzojlqdifbvbwlrscs'}, {fileName: 'fhlpk.txt', fileValue: 'iypxemtdglaaewaofchk'}, {fileName: 'ghlra.txt', fileValue: 'akghdomkleebcbtuouov'}, {fileName: 'gqbnm.txt', fileValue: 'qgfvftzsscbhwbxehxgq'}, {fileName: 'gvjtb.txt', fileValue: 'zmdyswczahjrudqxjywj'}, {fileName: 'gvrah.txt', fileValue: 'edbdyyykmrvporbztfdw'}, {fileName: 'ijchn.txt', fileValue: 'kaatseyiygzhdkcuqljx'}, {fileName: 'ktgsx.txt', fileValue: 'dcogqcqiqnlbtdppzctr'}, {fileName: 'nnddw.txt', fileValue: 'rrmobualejyiyjegqhch'}, {fileName: 'uodsu.txt', fileValue: 'cryjkzeihfsajxclyxgp'}, {fileName: 'xtixa.txt', fileValue: 'edxcjoqfmnugmgofrapq'}, {fileName: 'ybmvq.txt', fileValue: 'qusxfdxgtrchrcchumap'}, {fileName: 'zovdh.txt', fileValue: 'vemzmtprtmxvwzrgtqyg'}]
+
+checkGET = (ip) => {
+    return new Promise((resolve, reject) => {
+        const randomNum = Math.floor(Math.random() * 15)
+        const fileName = fileArray[randomNum].fileName
+        let options = {
+            uri: `http://${ip}/${fileName}`
+        }
+        request(options)
+        .then((res) => {
+            if (res === fileArray[randomNum].fileValue){
+                resolve(true)
+            } else {
+                resolve(false)
+            }
+        })
+        .catch((err) => {
+            reject(err)
+        })
+    })
+}
+
+checkPOST = (ip) => {
+    return new Promise((resolve, reject) => {
+        const randomNum = Math.floor(Math.random() * 15)
+        const fileName = fileArray[randomNum].fileName
+        let options = {
+            uri: `http://${ip}/cat`,
+            method: 'POST',
+            body: {
+                path: fileName
+            }
+        }
+        request(options)
+        .then((res) => {
+            if (res === fileArray[randomNum].fileValue){
+                resolve(true)
+            } else {
+                resolve(false)
+            }
+        })
+        .catch((err) => {
+            reject(err)
+        })
+    })
+}
+
+setInterval(() => {
+    let tempLeaderBoard = JSON.parse(fs.readFileSync(leaderBoardFile))
+    const keys = Object.keys(tempLeaderBoard)
+    keys.forEach((e) => {
+        checkGET(tempLeaderBoard[e].ip)
+        .then((givePoints) => {
+            if (givePoints) {
+                tempLeaderBoard[e].points += 1
+            }
+            return checkPOST(tempLeaderBoard[e].ip)
+        })
+        .then((givePoints) => {
+            if (givePoints) {
+                tempLeaderBoard[e].points += 1
+            }
+        })
+        .catch((err) => {
+            console.error(err)
+        })
+    })
+    fs.writeFileSync(leaderBoardFile, tempLeaderBoard)
+}, 60000) // Every minute check for points
 
 app.listen(8080, () => {
     console.log('Listening on port 8080!')

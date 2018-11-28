@@ -1,10 +1,12 @@
 {
     "dan": {
         "username": "dan",
-        "points": 1
+        "points": 1,
+        "ip": "1.2.3.4"
     },
     "name": {
         "username": "name",
-        "points": 2
+        "points": 2,
+        "ip": "4.3.2.1"
     }
 }
