@@ -1,12 +1,1 @@
-{
-    "dan": {
-        "username": "dan",
-        "points": 1,
-        "ip": "1.2.3.4"
-    },
-    "name": {
-        "username": "name",
-        "points": 2,
-        "ip": "4.3.2.1"
-    }
-}
+{"dan":{"username":"dan","points":21,"ip":"localhost:8082"}}

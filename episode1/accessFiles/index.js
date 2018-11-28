@@ -108,7 +108,7 @@ checkGET = (ip) => {
         }
         request(options)
         .then((res) => {
-            if (res === fileArray[randomNum].fileValue){
+            if (res === fileArray[randomNum].fileValue){ // Could honestly just resolve this comparison
                 resolve(true)
             } else {
                 resolve(false)
@@ -122,18 +122,21 @@ checkGET = (ip) => {
 
 checkPOST = (ip) => {
     return new Promise((resolve, reject) => {
+        console.log('spot1')
         const randomNum = Math.floor(Math.random() * 15)
         const fileName = fileArray[randomNum].fileName
         let options = {
             uri: `http://${ip}/cat`,
             method: 'POST',
             body: {
-                path: fileName
-            }
+                "path": fileName
+            },
+            json: true
         }
         request(options)
         .then((res) => {
-            if (res === fileArray[randomNum].fileValue){
+            console.log('pos2')
+            if (res === fileArray[randomNum].fileValue){ // Could honestly just resolve this comparison
                 resolve(true)
             } else {
                 resolve(false)
@@ -146,27 +149,34 @@ checkPOST = (ip) => {
 }
 
 setInterval(() => {
-    let tempLeaderBoard = JSON.parse(fs.readFileSync(leaderBoardFile))
+    console.log('cehcking')
+    let tempLeaderBoard = JSON.parse(fs.readFileSync(leaderBoardFile, 'utf-8'))
+    console.log(tempLeaderBoard)
     const keys = Object.keys(tempLeaderBoard)
     keys.forEach((e) => {
         checkGET(tempLeaderBoard[e].ip)
         .then((givePoints) => {
             if (givePoints) {
                 tempLeaderBoard[e].points += 1
+                console.log(tempLeaderBoard[e].points)
+                console.log('giving points')
             }
             return checkPOST(tempLeaderBoard[e].ip)
         })
         .then((givePoints) => {
             if (givePoints) {
                 tempLeaderBoard[e].points += 1
+                console.log(tempLeaderBoard[e].points)
+                console.log('giving mpre points')
             }
+            console.log('writing')
+            fs.writeFileSync(leaderBoardFile, JSON.stringify(tempLeaderBoard))
         })
         .catch((err) => {
             console.error(err)
         })
     })
-    fs.writeFileSync(leaderBoardFile, tempLeaderBoard)
-}, 60000) // Every minute check for points
+}, 6000) // Every minute check for points
 
 app.listen(8080, () => {
     console.log('Listening on port 8080!')
