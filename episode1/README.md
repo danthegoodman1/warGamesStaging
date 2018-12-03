@@ -12,6 +12,14 @@ You are given a binary to give API access to, `catWrapper`. This binary simply w
 
 ## Requirements
 
+#### Point System:
+
+Points will be based on 2 factors, blue team points and red team points. Blue team points come from having your services up and running. Red team points come from successful red team actions and are reported using [the attack report google form](https://goo.gl/forms/m3CJSw4wYZuicbFI2).
+
+#### Reporting:
+
+You will report all attacks on [this attack report google form](https://goo.gl/forms/m3CJSw4wYZuicbFI2). Anytime you make an intrusion, lateral movement, process migration, privilege escallation, persistence, website defacement, file system deletion, etc., you should fill out the form. It is how your Red Team points will be calculated.
+
 #### Attack:
 
 Prevent the points API from accessing opponents cat APIs. You are not allowed to attack the points API, only opponents cat APIs. Do what ever you want to prevent that from happening.
