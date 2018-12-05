@@ -29,6 +29,11 @@ Title 18 U.S.Code Chapter 47  Part? § 1030
 
 You are given a binary to give API access to, `catWrapper`. This binary simply wraps the bash command, `cat`. However, it is not as robust. Using your knowledge of bash, Linux, and some C, you must allow the service to work while protecting its functionality.
 
+## Timeline
+
+#### Development: 1 week
+#### War: 4 weeks
+
 ## Requirements
 
 #### Point System:

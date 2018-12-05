@@ -8,6 +8,7 @@ The war games are a series of episodes in which each player or team is both the 
 
 #### Important information
 * [Legalities](#important)
+* [What you will learn](#learning)
 * [Tutorials](/tutorials)
 * [Kali template VM](#kali-war-games-vm)
 
@@ -37,6 +38,26 @@ Nessus will attempt to screenshot VNC servers, and bruteforce FTP servers. These
 \*Computer Fraud and Abuse Act (CFAA)
 https://en.wikipedia.org/wiki/Computer_Fraud_and_Abuse_Act
 Title 18 U.S.Code Chapter 47  Part? § 1030
+
+## Learning
+
+Throughout the War Games, you will learn many skills and become many things.
+
+#### Red Teamer
+
+You will learn to become a competent red team member, someone who can effectively pivot from vulnerability scanning to exploitation. Additionally, you will learn how to look for new or non-scannable vulnerabilities.
+
+#### Web Developer
+
+You will learn how to build real web apps that perform different tasks, and their associated RESTful APIs securely.
+
+#### Linux Ninja
+
+You will learn how to use Linux servers. Real Linux servers. You will learn how to run services on them, how to secure them, how to operate on them. You will become amazing with Linux using on the terminal.
+
+#### How to Learn from Failure
+
+You will learn this all through failure. When someone breaks your code, and points out a flaw, it is the most valuable learning opportunity you will receive. If you fail here, that is good. If you fail in the real world, there are consequences.
 
 ## Kali War Games VM
 
