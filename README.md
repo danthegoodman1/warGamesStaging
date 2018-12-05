@@ -45,15 +45,19 @@ Throughout the War Games, you will learn many skills and become many things.
 
 #### Red Teamer
 
-You will learn to become a competent red team member, someone who can effectively pivot from vulnerability scanning to exploitation. Additionally, you will learn how to look for new or non-scannable vulnerabilities.
+You will learn to become a competent red team member, someone who can effectively pivot from vulnerability scanning to exploitation. Additionally, you will learn how to look for new or non-scannable vulnerabilities, and build your own exploits.
 
 #### Web Developer
 
-You will learn how to build real web apps that perform different tasks, and their associated RESTful APIs securely.
+You will learn how to build real web apps that perform different tasks, and their associated RESTful APIs securely. You will build these web apps and RESTful APIs with what ever language you choose, and master it.
+
+#### Programmer
+
+You will be forced to learn enough about new programming languages to be able to read code, and understand what is going on. You will learn all of the terms and programming techniques to be able to google your way through any development task in any language.
 
 #### Linux Ninja
 
-You will learn how to use Linux servers. Real Linux servers. You will learn how to run services on them, how to secure them, how to operate on them. You will become amazing with Linux using on the terminal.
+You will learn how to use Linux servers. Real Linux servers. You will learn how to run services on them, how to secure them, how to operate on them. You will become amazing with Linux using only the terminal.
 
 #### How to Learn from Failure
 
