@@ -23,6 +23,7 @@ The war games are a series of episodes in which each player or team is both the 
 ## IMPORTANT
 
 **DO NOT SCAN DEVICES YOU ARE NOT AUTHORIZED TO**
+
 OpenVAS and Nessus both try to access devices in various ways during the later stages of their scans.
 
 OpenVAS will attempt a small ssh bruteforce attack on the server. If successful, you will have committed a felony under the CFAA*. Additionally, it will try to brute force FTP servers.
