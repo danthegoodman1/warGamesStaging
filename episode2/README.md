@@ -16,8 +16,6 @@ Nessus will attempt to screenshot VNC servers, and bruteforce FTP servers. These
 
 `nmap` by default is fine though...
 
-
-
 \*Computer Fraud and Abuse Act (CFAA)
 https://en.wikipedia.org/wiki/Computer_Fraud_and_Abuse_Act
 Title 18 U.S.Code Chapter 47  Part? § 1030
@@ -31,8 +29,8 @@ You are in charge of developing an inventory management system for VulnLogistics
 
 ## Timeline
 
-#### Development: 2 weeks
-#### War: 4 weeks
+#### Development: `2 weeks`
+#### War: `4 weeks`
 
 ## Requirements
 

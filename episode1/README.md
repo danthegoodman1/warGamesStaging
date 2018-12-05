@@ -31,8 +31,8 @@ You are given a binary to give API access to, `catWrapper`. This binary simply w
 
 ## Timeline
 
-#### Development: 1 week
-#### War: 4 weeks
+#### Development: `1 week`
+#### War: `4 weeks`
 
 ## Requirements
 
