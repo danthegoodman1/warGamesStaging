@@ -42,7 +42,7 @@ Title 18 U.S.Code Chapter 47  Part? § 1030
 
 The provided template is a Kali 2018.3a VM pre configured with VM tools, Nessus, and OpenVAS pre-installed.
 
-The username is `root` and the password is `toor` for the VM as well as Nessus. For OpenVAS, the login username is `admin` and the password is ``. **These webservers are configured to listen on all interfaces, so keeping this VM to share the same IP as your host device is highly advised.** Changing credentials is also suggested
+The username is `root` and the password is `toor` for the VM as well as Nessus. For OpenVAS, the login username is `admin` and the password is `c21f74bb-cb53-4ebc-b010-23a1d738c3a8`. **These webservers are configured to listen on all interfaces, so keeping this VM to share the same IP as your host device is highly advised.** Changing credentials is also suggested
 
 You will have to provide your own key for Nessus. This can be obtained by going to [this link](https://www.tenable.com/products/nessus-home) and registering for Nessus home.
 
