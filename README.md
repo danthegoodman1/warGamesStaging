@@ -40,7 +40,7 @@ Title 18 U.S.Code Chapter 47  Part? § 1030
 
 ## Kali War Games VM
 
-The provided template is a Kali 2018.3a VM pre configured with VM tools, Nessus, and OpenVAS pre-installed.
+The provided template is a Kali 2018.3a VM pre configured with VM tools, Nessus, and OpenVAS pre-installed. It can be [downloaded from here.](https://udelvip.nyc3.digitaloceanspaces.com/Kali%202018.3a%20Wargames.zip)
 
 The username is `root` and the password is `toor` for the VM as well as Nessus. For OpenVAS, the login username is `admin` and the password is `c21f74bb-cb53-4ebc-b010-23a1d738c3a8`. **These webservers are configured to listen on all interfaces, so keeping this VM to share the same IP as your host device is highly advised.** Changing credentials is also suggested
 
