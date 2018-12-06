@@ -30,7 +30,7 @@ You are in charge of developing an inventory management system for VulnLogistics
 ## Timeline
 
 #### Development: `2 weeks`
-#### War: `4 weeks`
+#### War: `2 weeks`
 
 ## Requirements
 
@@ -53,3 +53,7 @@ Keep your webapp alive. The scoreBoardAPI should be able to load the data from a
 The webapp UI must be able to list currently stored entries, with the following elements: `origin`, `shipment time`, `destination`, `status`, `sender`, `receiver`. It must also be able to create, update, search for, and delete entries from the list/database.
 
 The RESTful API must be able to perform the same operations as the UI, list, search, update, create, delete. Listing will come from the appropriate GET requests, as well as searching. Creation will come from a POST request. Updating will come from a PUT request. Deletion will come from a DELETE request.
+
+## Post Competition
+
+The winner will be determined by who ever has the most amount of points in the end. All source code will be shared by the competitors. In the event that cheating has occurred (source code does not match protection capabilities of the API), the winner will be the highest point holder with legal source code.
