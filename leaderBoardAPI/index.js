@@ -2,6 +2,79 @@ const fs = require('fs')
 const bodyParser = require('body-parser')
 const express = require('express')
 const request = require('request-promise')
+const Sequelize = require('sequelize')
+const sequelize = new Sequelize('database', 'username', 'password', {
+    host: 'localhost',
+    dialect: 'sqlite',
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    },
+    storage: './database.sqlite'
+})
+// const dbModels = require('./dbModels')
+module.exports.sequelize = sequelize
+
+sequelize.authenticate()
+.then(() => {
+    console.log('Connection has been established successfully.')
+})
+.catch(err => {
+    console.error('Unable to connect to the database:', err)
+})
+
+const User = sequelize.define('user', {
+    firstName: {
+      type: Sequelize.STRING
+    },
+    lastName: {
+      type: Sequelize.STRING
+    },
+    userName: {
+        type: Sequelize.STRING
+    },
+    allPoints: {
+        type: Sequelize.INTEGER
+    },
+    episodePoints: {
+        type: Sequelize.JSON
+    }
+})
+
+User.sync().then(() => {
+    // return User.create({
+    //     firstName: 'Dan',
+    //     lastName: 'Goodman',
+    //     userName: 'danthegoodman',
+    //     allPoints: {}
+    // })
+    return User.findOrCreate({
+        where: {username: 'example'},
+        defaults: {
+            userName: 'example',
+            firstName: 'example',
+            lastName: 'example',
+            episodePoints: {
+                episode1: 0
+            },
+            allPoints: 0
+        }
+    })
+})
+.spread((user, created) => {
+    console.log(created)
+    return User.findAll()
+})
+.then(users => {
+    console.log(users)
+    console.log(users.length)
+})
+.catch((err) => {
+    console.error(err)
+})
+
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -16,7 +89,6 @@ function compareValues(key, order='asc') {
          !b.hasOwnProperty(key)) {
           return 0; 
       }
-      
       const varA = (typeof a[key] === 'string') ? 
         a[key].toUpperCase() : a[key];
       const varB = (typeof b[key] === 'string') ? 
@@ -38,20 +110,34 @@ function compareValues(key, order='asc') {
 
 calculateLeaderBoard = () => {
     return new Promise((resolve, reject) => {
-        fs.readFile(leaderBoardFile, (err, data) => {
-            if (err) reject(err)
-            data = JSON.parse(data)
-            keys = Object.keys(data)
+        // fs.readFile(leaderBoardFile, (err, data) => {
+        //     if (err) reject(err)
+        //     data = JSON.parse(data)
+        //     keys = Object.keys(data)
+        //     let tempArray = []
+        //     keys.forEach((e) => {
+        //         tempArray.push(data[e])
+        //     })
+        //     tempArray.sort(compareValues('points', 'desc'))
+        //     fs.writeFileSync('./leaderBoard', 'War Games Episode 1 Leader Board:\n')
+        //     tempArray.forEach((e) => {
+        //         fs.appendFileSync('./leaderBoard', (e.points === 1) ? `User ${e.username} has ${e.points} point\n` : `User ${e.username} has ${e.points} points\n`)
+        //     })
+        //     resolve(fs.readFileSync('./leaderBoard'))
+        // })
+        User.findAll()
+        .then((users) => {
             let tempArray = []
-            keys.forEach((e) => {
-                tempArray.push(data[e])
+            users.forEach((e) => {
+                tempArray.push({
+                    firstName: e.firstName,
+                    lastName: e.lastName,
+                    userName: e.userName,
+                    allPoints: e.allPoints
+                })
             })
-            tempArray.sort(compareValues('points', 'desc'))
-            fs.writeFileSync('./leaderBoard', 'War Games Episode 1 Leader Board:\n')
-            tempArray.forEach((e) => {
-                fs.appendFileSync('./leaderBoard', (e.points === 1) ? `User ${e.username} has ${e.points} point\n` : `User ${e.username} has ${e.points} points\n`)
-            })
-            resolve(fs.readFileSync('./leaderBoard'))
+            tempArray.sort(compareValues('allPoints', 'desc'))
+            resolve(tempArray)
         })
     })
 }
@@ -60,15 +146,31 @@ app.route('/leaderBoard')
 .get((req, res, next) => {
     if (req.query.raw === 'true') {
         console.log('Got a raw /leaderBoard request')
-        fs.readFile(leaderBoardFile, (err, data) => {
-            data = JSON.parse(data)
-            res.status(200).json(data)
+        // fs.readFile(leaderBoardFile, (err, data) => {
+        //     data = JSON.parse(data)
+        //     res.status(200).json(data)
+        // })
+        User.findAll()
+        .then((users) => {
+            res.status(200).send(users)
         })
     } else {
         console.log('Got a /leaderBoard request')
-        calculateLeaderBoard()
+        // calculateLeaderBoard()
+        // .then((board) => {
+        User.findAll()
         .then((board) => {
-            res.status(200).send(board)
+            let tempString = ''
+            board.forEach((user) => {
+                tempString = tempString.concat('', `User Name: ${user.userName}
+First Name: ${user.firstName}
+Last Name: ${user.lastName}
+Total Points: ${user.allPoints}
+Episode Specific Points: ${JSON.stringify(user.episodePoints)}\n\n`
+                )
+            })
+            tempString = tempString.slice(0, -2)
+            res.status(200).send(tempString)
         })
         .catch((err) => {
             res.status(500).send('Server side error')
@@ -81,16 +183,46 @@ app.route('/leaderBoard/:user')
 .get((req, res, next) => {
     const user = req.params.user
     if (req.query.raw === 'true') {
-        console.log(`Got a raw /leaderBoard/${user} request`)
-        fs.readFile(leaderBoardFile, (err, data) => {
-            data = JSON.parse(data)
-            res.status(200).json(data[user])
+        // console.log(`Got a raw /leaderBoard/${user} request`)
+        // fs.readFile(leaderBoardFile, (err, data) => {
+        //     data = JSON.parse(data)
+        //     res.status(200).json(data[user])
+        // })
+        User.findOne({
+            where: {
+                userName: user
+            }
+        })
+        .then((user) => {
+            if (user) {
+                res.status(200).send(user)
+            } else {
+                res.status(400).send('User does not exist')
+            }
         })
     } else {
         console.log(`Got a /leaderBoard/${user} request`)
-        fs.readFile(leaderBoardFile, (err, data) => {
-            data = JSON.parse(data)
-            res.status(200).send((data[user].points === 1) ? `User ${data[user].username} has ${data[user].points} point` : `User ${data[user].username} has ${data[user].points} points`)
+        // fs.readFile(leaderBoardFile, (err, data) => {
+        //     data = JSON.parse(data)
+        //     res.status(200).send((data[user].points === 1) ? `User ${data[user].username} has ${data[user].points} point` : `User ${data[user].username} has ${data[user].points} points`)
+        // })
+        User.findOne({
+            where: {
+                userName: user
+            }
+        })
+        .then((user) => {
+            if (user) {
+                res.status(200).send(
+`User Name: ${user.userName}
+First Name: ${user.firstName}
+Last Name: ${user.lastName}
+Total Points: ${user.allPoints}
+Episode Specific Points: ${JSON.stringify(user.episodePoints)}`
+                )
+            } else {
+                res.status(400).send('User does not exist')
+            }
         })
     }
 })
