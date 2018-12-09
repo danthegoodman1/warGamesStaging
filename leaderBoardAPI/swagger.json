@@ -1,0 +1,147 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "UD War Games Public Leaderboard API Documentation",
+        "description": "Documentation and UI for the UD War Games Leaderboard API",
+        "version": "v0.2",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Dan Goodman - War Games founder and developer",
+            "email": "dgoodman@udel.edu"
+        },
+        "license": "lmao"
+    },
+    "host": "localhost:8080/api",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Endpoints related to getting info on users"
+        }
+    ],
+    "paths": {
+        "/leaderBoard": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Fetches a formatted leader board",
+                "description": "Get nicely formatted leader board info",
+                "produces": [
+                    "text/plain"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "raw",
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "description": "Boolean value, if true returns a raw array straight from the database"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully returned leader board info"
+                    },
+                    "500": {
+                        "description": "Interal Server Error"
+                    }
+                }
+            }
+        },
+        "/leaderBoard/{userName}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Fetch leader board info on a specific user",
+                "description": "Fetch leader board info on a specific user",
+                "produces": [
+                    "text/plain"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userName",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "User name to fetch info from specifically",
+                        "required": "true"
+                    },
+                    {
+                        "in": "query",
+                        "name": "raw",
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "description": "Boolean value, if true returns a raw array straight from the database"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully returned leader board info"
+                    },
+                    "500": {
+                        "description": "Interal Server Error"
+                    }
+                }
+            }
+        },
+        "/leaderBoard/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Register a user account",
+                "description": "Register a user account",
+                "produces": [
+                    "text/plain"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Body data",
+                        "schema": {
+                            "$ref": "#/definitions/userRegisterBody"
+                        },
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successfully created user account"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Interal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "userRegisterBody": {
+            "type": "object",
+            "properties": {
+                "userName": {
+                    "type": "string",
+                    "description": "User name"
+                },
+                "firstName": {
+                    "type": "string",
+                    "description": "First name",
+                    "required": "false"
+                },
+                "lastName": {
+                    "type": "string",
+                    "description": "Last name",
+                    "required": "false"
+                }
+            }
+        }
+    }
+}

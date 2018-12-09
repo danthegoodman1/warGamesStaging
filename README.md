@@ -11,6 +11,8 @@ The war games are a series of episodes in which each player or team is both the 
 * [What you will learn](#learning)
 * [Tutorials](/tutorials)
 * [Kali template VM](#kali-war-games-vm)
+* [Website](https://udwargames.com)
+* [API Documentation](https://udwargames.com/api/docs)
 
 #### Episodes:
 * [Episode 1: The Wrapping of Cats](#episode-1-the-wrapping-of-cats)

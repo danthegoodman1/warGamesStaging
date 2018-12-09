@@ -2,6 +2,8 @@ const fs = require('fs')
 const bodyParser = require('body-parser')
 const express = require('express')
 const request = require('request-promise')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost',
@@ -27,10 +29,14 @@ sequelize.authenticate()
 
 const User = sequelize.define('user', {
     firstName: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: true,
+      defaultValue: null
     },
     lastName: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
+      allowNull: true,
+      defaultValue: null
     },
     userName: {
         type: Sequelize.STRING,
@@ -38,32 +44,35 @@ const User = sequelize.define('user', {
         unique: true
     },
     allPoints: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0
     },
     episodePoints: {
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
+        defaultValue: {}
     },
     episodeInfo: {
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
+        defaultValue: {}
     }
 })
 
 User.sync()
 .then(() => {
-    return User.create({
-        firstName: 'example2',
-        lastName: 'example2',
-        userName: 'example2',
-        allPoints: 40,
-        episodeInfo: {
-            episode1: {
-                pi: '0.0.0.0'
-            }
-        },
-        episodePoints: {
-            episode1: 40
-        }
-    })
+    // return User.create({
+    //     firstName: 'example2',
+    //     lastName: 'example2',
+    //     userName: 'example2',
+    //     allPoints: 40,
+    //     episodeInfo: {
+    //         episode1: {
+    //             pi: '0.0.0.0'
+    //         }
+    //     },
+    //     episodePoints: {
+    //         episode1: 40
+    //     }
+    // })
     // return User.findOrCreate({
     //     where: {username: 'example'},
     //     defaults: {
@@ -95,6 +104,8 @@ User.sync()
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Leader Board API
 
@@ -159,7 +170,7 @@ calculateLeaderBoard = () => {
     })
 }
 
-app.route('/leaderBoard')
+app.route('/api/leaderBoard')
 .get((req, res, next) => {
     if (req.query.raw === 'true') {
         console.log('Got a raw /leaderBoard request')
@@ -196,7 +207,7 @@ Episode Specific Points: ${JSON.stringify(user.episodePoints)}\n\n`
     }
 })
 
-app.route('/leaderBoard/:user')
+app.route('/api/leaderBoard/:user')
 .get((req, res, next) => {
     const user = req.params.user
     if (req.query.raw === 'true') {
@@ -242,6 +253,11 @@ Episode Specific Points: ${JSON.stringify(user.episodePoints)}`
             }
         })
     }
+})
+
+app.route('/api/register')
+.post((req, res, next) => {
+    res.status(400).send('Not ready yet!')
 })
 
 ////////////////////
