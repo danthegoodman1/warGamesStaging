@@ -31,6 +31,14 @@ You are in charge of developing an inventory management system for VulnLogistics
 
 #### Development: `2 weeks`
 
+#### Development Hints:
+
+You are going to be using some sort of database, whether it be a cloud based NoSQL DB, MySQL, SQLite3, a CSV file, etc.
+
+For your front end, you should may consider using a JS framework like React, Vue, Angular, ember, Polymer, etc. **But** you could also use pure JS or even JQuery or Lodash easily if you don't think you could learn a JS framework in time.
+
+You for interacting with the DB, you will need to make a RESTful API that plugs into your front end. My preference is always [Express](https://expressjs.com/).
+
 ## Requirements
 
 #### Point System:

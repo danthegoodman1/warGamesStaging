@@ -32,6 +32,9 @@ You are given a binary to give API access to, `catWrapper`. This binary simply w
 ## Timeline
 
 #### Development: `1 week`
+#### Development Hints:
+
+You are going to need to build an RESTful API. My favorite by far and I think the easiest to use too is [Express](https://expressjs.com/), a Node.js API framework.
 
 ## Requirements
 
