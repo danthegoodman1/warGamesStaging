@@ -104,6 +104,9 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+// Front end
+app.use(express.static('dist'))
+
 // Rate limiter
 
 const limiter = rateLimit({
