@@ -4,6 +4,7 @@ const express = require('express')
 const request = require('request-promise')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
+const rateLimit = require("express-rate-limit")
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost',
@@ -16,8 +17,16 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     },
     storage: './database.sqlite'
 })
-// const dbModels = require('./dbModels')
-module.exports.sequelize = sequelize
+
+// Rate limiter
+
+const limiter = rateLimit({
+    windowMs: 2 * 60 * 1000, // 2 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+})
+ 
+//  apply to all requests
+app.use(limiter)
 
 sequelize.authenticate()
 .then(() => {
