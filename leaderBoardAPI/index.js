@@ -33,24 +33,37 @@ const User = sequelize.define('user', {
       type: Sequelize.STRING
     },
     userName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
     },
     allPoints: {
         type: Sequelize.INTEGER
     },
     episodePoints: {
         type: Sequelize.JSON
+    },
+    episodeInfo: {
+        type: Sequelize.JSON
     }
 })
 
 User.sync()
 .then(() => {
-    // return User.create({
-    //     firstName: 'Dan',
-    //     lastName: 'Goodman',
-    //     userName: 'danthegoodman',
-    //     allPoints: {}
-    // })
+    return User.create({
+        firstName: 'example2',
+        lastName: 'example2',
+        userName: 'example2',
+        allPoints: 40,
+        episodeInfo: {
+            episode1: {
+                pi: '0.0.0.0'
+            }
+        },
+        episodePoints: {
+            episode1: 40
+        }
+    })
     // return User.findOrCreate({
     //     where: {username: 'example'},
     //     defaults: {
@@ -72,6 +85,10 @@ User.sync()
     console.log(`\n\n${users.length} users in db\n\n`)
 })
 .catch((err) => {
+    if (err.name === 'SequelizeUniqueConstraintError') {
+        console.log('hey\n\n\n\n\nhey')
+        // This is how we handle sequelize errors
+    }
     console.error(err)
 })
 
@@ -283,32 +300,36 @@ checkPOST = (ip) => {
 }
 
 setInterval(() => {
-    console.log('cehcking')
-    let tempLeaderBoard = JSON.parse(fs.readFileSync(leaderBoardFile, 'utf-8'))
-    console.log(tempLeaderBoard)
-    const keys = Object.keys(tempLeaderBoard)
-    keys.forEach((e) => {
-        checkGET(tempLeaderBoard[e].ip)
-        .then((givePoints) => {
-            if (givePoints) {
-                tempLeaderBoard[e].points += 1
-                console.log(tempLeaderBoard[e].points)
-                console.log('giving points')
-            }
-            return checkPOST(tempLeaderBoard[e].ip)
-        })
-        .then((givePoints) => {
-            if (givePoints) {
-                tempLeaderBoard[e].points += 1
-                console.log(tempLeaderBoard[e].points)
-                console.log('giving mpre points')
-            }
-            console.log('writing')
-            fs.writeFileSync(leaderBoardFile, JSON.stringify(tempLeaderBoard))
-        })
-        .catch((err) => {
-            console.error(err)
-        })
+    console.log('Checking points')
+    // let tempLeaderBoard = JSON.parse(fs.readFileSync(leaderBoardFile, 'utf-8'))
+    // console.log(tempLeaderBoard)
+    // const keys = Object.keys(tempLeaderBoard)
+    // keys.forEach((e) => {
+    //     checkGET(tempLeaderBoard[e].ip)
+    //     .then((givePoints) => {
+    //         if (givePoints) {
+    //             tempLeaderBoard[e].points += 1
+    //             console.log(tempLeaderBoard[e].points)
+    //             console.log('giving points')
+    //         }
+    //         return checkPOST(tempLeaderBoard[e].ip)
+    //     })
+    //     .then((givePoints) => {
+    //         if (givePoints) {
+    //             tempLeaderBoard[e].points += 1
+    //             console.log(tempLeaderBoard[e].points)
+    //             console.log('giving mpre points')
+    //         }
+    //         console.log('writing')
+    //         fs.writeFileSync(leaderBoardFile, JSON.stringify(tempLeaderBoard))
+    //     })
+    //     .catch((err) => {
+    //         console.error(err)
+    //     })
+    // })
+    User.findAll()
+    .then((users) => {
+
     })
 }, 60000) // Every minute check for points
 
