@@ -363,7 +363,7 @@ setInterval(() => {
     // })
     User.findAll()
     .then((users) => {
-
+        // TODO: Write this
     })
 }, 60000) // Every minute check for points
 
