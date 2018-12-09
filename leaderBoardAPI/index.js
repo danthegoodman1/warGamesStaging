@@ -43,33 +43,33 @@ const User = sequelize.define('user', {
     }
 })
 
-User.sync().then(() => {
+User.sync()
+.then(() => {
     // return User.create({
     //     firstName: 'Dan',
     //     lastName: 'Goodman',
     //     userName: 'danthegoodman',
     //     allPoints: {}
     // })
-    return User.findOrCreate({
-        where: {username: 'example'},
-        defaults: {
-            userName: 'example',
-            firstName: 'example',
-            lastName: 'example',
-            episodePoints: {
-                episode1: 0
-            },
-            allPoints: 0
-        }
-    })
-})
-.spread((user, created) => {
-    console.log(created)
+    // return User.findOrCreate({
+    //     where: {username: 'example'},
+    //     defaults: {
+    //         userName: 'example',
+    //         firstName: 'example',
+    //         lastName: 'example',
+    //         episodePoints: {
+    //             episode1: 0
+    //         },
+    //         allPoints: 0
+    //     }
+    // })
     return User.findAll()
 })
+// .spread((user, created) => {
+//     console.log(created)
+// })
 .then(users => {
-    console.log(users)
-    console.log(users.length)
+    console.log(`\n\n${users.length} users in db\n\n`)
 })
 .catch((err) => {
     console.error(err)
