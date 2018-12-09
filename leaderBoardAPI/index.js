@@ -18,16 +18,6 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     storage: './database.sqlite'
 })
 
-// Rate limiter
-
-const limiter = rateLimit({
-    windowMs: 2 * 60 * 1000, // 2 minutes
-    max: 100 // limit each IP to 100 requests per windowMs
-})
- 
-//  apply to all requests
-app.use(limiter)
-
 sequelize.authenticate()
 .then(() => {
     console.log('Connection has been established successfully.')
@@ -114,6 +104,17 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
+// Rate limiter
+
+const limiter = rateLimit({
+    windowMs: 2 * 60 * 1000, // 2 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: "Too many requests! Try again in 120 seconds"
+})
+ 
+//  apply to all requests
+app.use(limiter)
+
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Leader Board API
@@ -178,6 +179,14 @@ calculateLeaderBoard = () => {
         })
     })
 }
+
+// API Routes
+
+app.route('/api/test')
+.get((req, res, next) => {
+    console.log('got request')
+    res.send('got requests')
+})
 
 app.route('/api/leaderBoard')
 .get((req, res, next) => {
