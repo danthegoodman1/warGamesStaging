@@ -30,7 +30,6 @@ You are in charge of developing an inventory management system for VulnLogistics
 ## Timeline
 
 #### Development: `2 weeks`
-#### War: `2 weeks`
 
 ## Requirements
 
