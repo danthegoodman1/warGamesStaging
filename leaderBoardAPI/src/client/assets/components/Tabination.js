@@ -110,24 +110,24 @@ export default class Statement extends React.Component {
         })
     }
 
-    exampleGuys = [
-        {
-          num: 3,
-          fn: 'danffff',
-          ln: 'goodman',
-          un: 'danthegoodman'
-        },
-        {
-          num: 4,
-          fn: 'fan',
-          ln: 'foodman',
-          un: 'fanthefoodman'
-        }
-      ]
+    // exampleGuys = [
+    //     {
+    //       num: 3,
+    //       fn: 'danffff',
+    //       ln: 'goodman',
+    //       un: 'danthegoodman'
+    //     },
+    //     {
+    //       num: 4,
+    //       fn: 'fan',
+    //       ln: 'foodman',
+    //       un: 'fanthefoodman'
+    //     }
+    //   ]
 
     render() {
 
-        const { content, caret, extraMessage } = this.props
+        const { content, extraMessage } = this.props
 
         return (
             <div>
