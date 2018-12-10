@@ -59,17 +59,17 @@ const User = sequelize.define('user', {
 User.sync()
 .then(() => {
     // return User.create({
-    //     firstName: 'example2',
-    //     lastName: 'example2',
-    //     userName: 'example2',
-    //     allPoints: 40,
+    //     firstName: 'Dan',
+    //     lastName: 'Goodman',
+    //     userName: 'danthegoodman',
+    //     allPoints: 0,
     //     episodeInfo: {
     //         episode1: {
-    //             pi: '0.0.0.0'
+    //             ip: 'none'
     //         }
     //     },
     //     episodePoints: {
-    //         episode1: 40
+    //         episode1: 0
     //     }
     // })
     // return User.findOrCreate({
@@ -287,25 +287,21 @@ app.route('/api/leaderBoard/episode/:episode')
 .get((req, res, next) => {
     const episode = req.params.episode
     console.log(`checking episode: ${episode}`)
-    if (req.query.raw === 'true') {
-        User.findAll()
-        .then((users) => {
-            // Different formatting for sure
-            let tempArray = []
-            users.forEach((ele, ind) => {
-                tempArray.push({
-                    firstName: ele.firstName,
-                    lastName: ele.lastName,
-                    userName: ele.userName,
-                    points: ele.episodePoints[`episode${episode}`]
-                })
+    User.findAll()
+    .then((users) => {
+        // Different formatting for sure
+        let tempArray = []
+        users.forEach((ele, ind) => {
+            tempArray.push({
+                firstName: ele.firstName,
+                lastName: ele.lastName,
+                userName: ele.userName,
+                points: ele.episodePoints[`episode${episode}`]
             })
-            tempArray.sort(compareValues('points', 'desc'))
-            res.status(200).send(tempArray)
         })
-    } else {
-
-    }
+        tempArray.sort(compareValues('points', 'desc'))
+        res.status(200).send(tempArray)
+    })
 })
 
 app.route('/api/register')
