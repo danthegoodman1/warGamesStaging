@@ -283,6 +283,31 @@ Episode Specific Points: ${JSON.stringify(user.episodePoints)}`
     }
 })
 
+app.route('/api/leaderBoard/episode/:episode')
+.get((req, res, next) => {
+    const episode = req.params.episode
+    console.log(`checking episode: ${episode}`)
+    if (req.query.raw === 'true') {
+        User.findAll()
+        .then((users) => {
+            // Different formatting for sure
+            let tempArray = []
+            users.forEach((ele, ind) => {
+                tempArray.push({
+                    firstName: ele.firstName,
+                    lastName: ele.lastName,
+                    userName: ele.userName,
+                    points: ele.episodePoints[`episode${episode}`]
+                })
+            })
+            tempArray.sort(compareValues('points', 'desc'))
+            res.status(200).send(tempArray)
+        })
+    } else {
+
+    }
+})
+
 app.route('/api/register')
 .post((req, res, next) => {
     res.status(400).send('Not ready yet!')

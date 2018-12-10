@@ -51,7 +51,7 @@ export default class Statement extends React.Component {
         activeIndex[e.target.id] = true
         this.setState({ activeIndex })
         if (e.target.id === '1') {
-            this.fetchDataUser('example2')
+            this.fetchDataEpisode(e.target.id.toString())
         } else {
             this.fetchData()
         }
@@ -69,11 +69,12 @@ export default class Statement extends React.Component {
                     firstName: e.firstName,
                     lastName: e.lastName,
                     userName: e.userName,
-                    allPoints: e.allPoints
+                    points: e.allPoints
                 })
             })
             tempItems.sort(this.compareValues('allPoints', 'desc'))
             this.setState({tableData: tempItems})
+            console.log(tempItems)
         })
         .catch((err) => {
             console.log(err)
@@ -86,7 +87,23 @@ export default class Statement extends React.Component {
             return res.json()
         })
         .then((res) => {
+            res.points = res.allPoints
+            console.log(res)
             this.setState({tableData: [res]})
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
+    fetchDataEpisode(episodeID) {
+        fetch(`http://localhost:8080/api/leaderBoard/episode/${episodeID}?raw=true`)
+        .then((res) => {
+            return res.json()
+        })
+        .then((res) => {
+            console.log(res)
+            this.setState({tableData: res})
         })
         .catch((err) => {
             console.log(err)
@@ -125,7 +142,7 @@ export default class Statement extends React.Component {
                         <a className="nav-link disabled">Episode 2</a>
                     </li>
                 </ul>
-                <Table items={this.state.tableData}/>
+                {this.state.tableData && <Table items={this.state.tableData}/>}
             </div>
         )
     }

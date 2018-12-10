@@ -86,7 +86,7 @@ export default class Table extends React.Component {
                                     <td>{i.firstName}</td>
                                     <td>{i.lastName}</td>
                                     <td>{i.userName}</td>
-                                    <td style={{textAlign: 'center'}}>{i.allPoints}</td>
+                                    <td style={{textAlign: 'center'}}>{i.points}</td>
                                     </tr>
                                 )
                             })
