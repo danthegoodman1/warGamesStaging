@@ -1,6 +1,8 @@
 import React from 'react'
 
-
+/**
+ * @param items (List of Objects) If given, will generate from items instead of web request
+ */
 export default class Table extends React.Component {
     constructor(props){
         super(props)
@@ -34,26 +36,26 @@ export default class Table extends React.Component {
       }
 
     componentDidMount() {
-        console.log('fetching')
-        fetch('http://localhost:8080/api/leaderBoard?raw=true')
-        .then((res) => {
-            console.log(res)
-            return res.json()
-        })
-        .then((res) => {
-            console.log(res)
-            let tempItems = []
-            res.forEach((e, i) => {
-                tempItems.push({
-                    fn: e.firstName,
-                    ln: e.lastName,
-                    un: e.userName,
-                    pt: e.allPoints
-                })
-            })
-            tempItems.sort(this.compareValues('allPoints', 'desc'))
-            this.setState({items: tempItems})
-        })
+        // console.log('fetching')
+        // fetch('http://localhost:8080/api/leaderBoard?raw=true')
+        // .then((res) => {
+        //     console.log(res)
+        //     return res.json()
+        // })
+        // .then((res) => {
+        //     console.log(res)
+        //     let tempItems = []
+        //     res.forEach((e, i) => {
+        //         tempItems.push({
+        //             fn: e.firstName,
+        //             ln: e.lastName,
+        //             un: e.userName,
+        //             pt: e.allPoints
+        //         })
+        //     })
+        //     tempItems.sort(this.compareValues('allPoints', 'desc'))
+        //     this.setState({items: tempItems})
+        // })
         // .catch((err) => {
         //     console.log(err)
         // })
@@ -63,36 +65,69 @@ export default class Table extends React.Component {
 
         const { items } = this.props
 
-        const rootThang = (
-            <table className="table table-hover table-striped">
-                <thead className="thead table-primary">
-                    <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                    <th>Total Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        this.state.items.map((i, index) => {
-                            return (
-                                <tr>
-                                <th scope="row">{index + 1}</th>
-                                <td>{i.fn}</td>
-                                <td>{i.ln}</td>
-                                <td>{i.un}</td>
-                                <td style={{textAlign: 'center'}}>{i.pt}</td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
-        )
+        if (items) {
+            const rootThang = (
+                <table className="table table-hover table-striped">
+                    <thead className="thead table-primary">
+                        <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Total Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            items.map((i, index) => {
+                                return (
+                                    <tr>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{i.firstName}</td>
+                                    <td>{i.lastName}</td>
+                                    <td>{i.userName}</td>
+                                    <td style={{textAlign: 'center'}}>{i.allPoints}</td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+            )
+            return rootThang
+        } else {
+            const rootThang = (
+                <table className="table table-hover table-striped">
+                    <thead className="thead table-primary">
+                        <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                        <th>Total Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            this.state.items.map((i, index) => {
+                                return (
+                                    <tr>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{i.fn}</td>
+                                    <td>{i.ln}</td>
+                                    <td>{i.un}</td>
+                                    <td style={{textAlign: 'center'}}>{i.pt}</td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+            )
+            return rootThang
+        }
 
 
-        return rootThang
+
     }
 }
