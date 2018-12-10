@@ -35,10 +35,11 @@ export default class Table extends React.Component {
 
     componentDidMount() {
         console.log('fetching')
-        fetch('http://localhost:8080/api/leaderBoard?raw=true', {
-            mode: 'no-cors'
+        fetch('http://localhost:8080/api/leaderBoard?raw=true')
+        .then((res) => {
+            console.log(res)
+            return res.json()
         })
-        .then(res => res.json())
         .then((res) => {
             console.log(res)
             let tempItems = []
@@ -53,9 +54,9 @@ export default class Table extends React.Component {
             tempItems.sort(this.compareValues('allPoints', 'desc'))
             this.setState({items: tempItems})
         })
-        .catch((err) => {
-            console.log(err)
-        })
+        // .catch((err) => {
+        //     console.log(err)
+        // })
     }
 
     render() {
