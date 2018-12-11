@@ -27,12 +27,12 @@ export default class Topnav extends React.Component {
                         aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <a className="navbar-brand" href="#!">Navbar1</a>
+                    <a className="navbar-brand">War Games</a>
 
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
                         <ul className="navbar-nav mr-auto mt-2 mt-md-0">
                             <li className="nav-item active">
-                                <a className="nav-link" href="#!">Home
+                                <a className="nav-link" href="/">Home
                                 <span className="sr-only">(current)</span>
                                 </a>
                             </li>
@@ -58,12 +58,12 @@ export default class Topnav extends React.Component {
                         aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <a className="navbar-brand" href="#!">Navbar2</a>
+                    <a className="navbar-brand">War Games</a>
 
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
                         <ul className="navbar-nav mr-auto mt-2 mt-md-0">
                             <li className="nav-item active">
-                                <a className="nav-link" href="#!">Home
+                                <a className="nav-link" href="/">Home
                                 <span className="sr-only">(current)</span>
                                 </a>
                             </li>
