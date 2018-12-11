@@ -5,6 +5,8 @@ const request = require('request-promise')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
 const rateLimit = require("express-rate-limit")
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost',
@@ -17,6 +19,18 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     },
     storage: './database.sqlite'
 })
+
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://www.example.com/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+       User.findOrCreate({ googleId: profile.id }, function (err, user) {
+         return done(err, user);
+       });
+  }
+))
 
 sequelize.authenticate()
 .then(() => {
@@ -191,6 +205,19 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
     next()
 })
+
+// Begin Login
+
+// TODO: Need to add a login page whether its with react routing or here...
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/plus.login']
+}))
+
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res, next) => {
+    res.redirect('/')
+})
+
+// End Login
 
 app.route('/api/test')
 .get((req, res, next) => {
