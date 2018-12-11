@@ -207,7 +207,7 @@ app.use(function(req, res, next) {
 })
 
 // Begin Login
-
+// http://www.passportjs.org/docs/google/
 // TODO: Need to add a login page whether its with react routing or here...
 app.get('/auth/google', passport.authenticate('google', {
     scope: ['https://www.googleapis.com/auth/plus.login']
