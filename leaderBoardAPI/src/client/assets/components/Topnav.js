@@ -9,7 +9,7 @@ export default class Topnav extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-
+            // GET URI to see what item to make active?
         }
     }
 
