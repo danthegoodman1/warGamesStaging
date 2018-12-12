@@ -7,6 +7,12 @@ import Statement from './assets/components/Statement'
 import Tabination from './assets/components/Tabination'
 import Topnav from './assets/components/Topnav'
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faIgloo, faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons'
+
+library.add([faIgloo, faSignInAlt, faUser])
+
 export default class App extends Component {
   state = {
 
@@ -46,6 +52,7 @@ export default class App extends Component {
             </div>
           </div>
         </div>
+        <script type="text/javascript" src="node_modules/auth0-js/build/auth0.js"></script>
       </div>
     )
   }

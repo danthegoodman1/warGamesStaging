@@ -5,8 +5,6 @@ const request = require('request-promise')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
 const rateLimit = require("express-rate-limit")
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost',
@@ -19,18 +17,6 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     },
     storage: './database.sqlite'
 })
-
-passport.use(new GoogleStrategy({
-    clientID: '<GOOGLE_CLIENT_ID>',
-    clientSecret: '<GOOGLE_CLIENT_SECRET>',
-    callbackURL: "http://www.example.com/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-       User.findOrCreate({ googleId: profile.id }, function (err, user) {
-         return done(err, user);
-       });
-  }
-))
 
 sequelize.authenticate()
 .then(() => {
@@ -207,13 +193,10 @@ app.use(function(req, res, next) {
 })
 
 // Begin Login
-// http://www.passportjs.org/docs/google/
-// TODO: Need to add a login page whether its with react routing or here... and need to make a top bar of sorts
-app.get('/auth/google', passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/plus.login']
-}))
-
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res, next) => {
+app.get('/callback', (req, res, next) => {
+    console.log('queries incoming')
+    console.log(req.query)
+    console.log(req.url)
     res.redirect('/')
 })
 
