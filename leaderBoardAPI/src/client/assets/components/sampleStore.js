@@ -9,7 +9,7 @@ var store = window.store = new SampleStore
 export default store
 
 autorun(() => {
-    console.log('store changed in file')
+    console.log('store changed in samplestore')
 })
 
 decorate(store, {
