@@ -11,7 +11,7 @@
         },
         "license": "lmao"
     },
-    "host": "localhost:8080/api",
+    "host": "http://udwargames.com/api",
     "tags": [
         {
             "name": "Users",
