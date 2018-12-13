@@ -1,0 +1,10 @@
+{
+    "apps": [
+      {
+        "name": "leaderBoardAPI",
+        "script": "npm",
+        "args": "start"
+      }
+    ],
+    "restart_delay": 4000
+  }
