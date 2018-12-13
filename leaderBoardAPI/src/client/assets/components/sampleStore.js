@@ -2,6 +2,8 @@ import { observable, autorun, decorate } from "mobx";
 
 class SampleStore {
     theStore = ['hey']
+    createdReload = false
+    tableData = []
 }
 
 var store = window.store = new SampleStore
@@ -13,5 +15,7 @@ autorun(() => {
 })
 
 decorate(store, {
-    theStore: observable
+    theStore: observable,
+    createdReload: observable,
+    tableData: observable,
 })

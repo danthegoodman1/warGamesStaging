@@ -1,12 +1,14 @@
 import React from 'react'
 import Table from './Table'
+import store from './sampleStore'
+import { observer } from 'mobx-react'
 
 /** 
  * @param content (String) message
  * @param caret (Boolean) whether the last character should have the vim caret
  * @param extraMessage (String) extra message to say
  */
-export default class Statement extends React.Component {
+const Tabination = observer(class Tabination extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -73,7 +75,7 @@ export default class Statement extends React.Component {
                 })
             })
             tempItems.sort(this.compareValues('allPoints', 'desc'))
-            this.setState({tableData: tempItems})
+            store.tableData = tempItems
             console.log(tempItems)
         })
         .catch((err) => {
@@ -89,7 +91,8 @@ export default class Statement extends React.Component {
         .then((res) => {
             res.points = res.allPoints
             console.log(res)
-            this.setState({tableData: [res]})
+            // this.setState({tableData: [res]})
+            store.tableData = [res]
         })
         .catch((err) => {
             console.log(err)
@@ -103,7 +106,8 @@ export default class Statement extends React.Component {
         })
         .then((res) => {
             console.log(res)
-            this.setState({tableData: res})
+            // this.setState({tableData: res})
+            store.tableData = res
         })
         .catch((err) => {
             console.log(err)
@@ -142,8 +146,10 @@ export default class Statement extends React.Component {
                         <a className="nav-link disabled">Episode 2</a>
                     </li>
                 </ul>
-                {this.state.tableData && <Table items={this.state.tableData}/>}
+                {store.tableData && <Table items={store.tableData}/>}
             </div>
         )
     }
-}
+})
+
+export default Tabination

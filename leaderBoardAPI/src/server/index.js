@@ -72,6 +72,7 @@ User.sync()
     //         episode1: 0
     //     }
     // })
+    // return User.findOne({where: {userName: 'dgoodman'}})
     // return User.findOrCreate({
     //     where: {username: 'example'},
     //     defaults: {
@@ -90,6 +91,7 @@ User.sync()
 //     console.log(created)
 // })
 .then(users => {
+    // users.destroy({force: true})
     console.log(`\n\n${users.length} users in db\n\n`)
 })
 .catch((err) => {
@@ -243,6 +245,31 @@ Episode Specific Points: ${JSON.stringify(user.episodePoints)}\n\n`
             console.error(err)
         })
     }
+})
+
+app.route('/api/tryRegister')
+.post((req, res, next) => {
+    User.findOrCreate({where: {userName: req.body.userName}, defaults: {
+        userName: req.body.userName,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        allPoints: 0,
+        episodePoints: {
+            episode1: 0
+        },
+        episodeInfo: {
+            episode1: {
+
+            }
+        }
+    }})
+    .spread((user, created) => {
+        if(created) {
+            res.status(201).json({created: true})
+        } else {
+            res.status(200).json({created: false})
+        }
+    })
 })
 
 app.route('/api/leaderBoard/:user')

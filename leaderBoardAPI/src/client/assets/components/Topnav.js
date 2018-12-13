@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Auth from './Auth'
 import history from './history'
 import { observer } from 'mobx-react'
-import sample from './sampleStore'
+import store from './sampleStore'
 
 const auth = new Auth()
 
@@ -20,6 +20,30 @@ const Topnav = observer(class Topnav extends React.Component {
         }
     }
 
+    compareValues(key, order='asc') {
+        return function(a, b) {
+          if(!a.hasOwnProperty(key) || 
+             !b.hasOwnProperty(key)) {
+              return 0; 
+          }
+          const varA = (typeof a[key] === 'string') ? 
+            a[key].toUpperCase() : a[key];
+          const varB = (typeof b[key] === 'string') ? 
+            b[key].toUpperCase() : b[key];
+            
+          let comparison = 0;
+          if (varA > varB) {
+            comparison = 1;
+          } else if (varA < varB) {
+            comparison = -1;
+          }
+          return (
+            (order == 'desc') ? 
+            (comparison * -1) : comparison
+          );
+        };
+      }
+
     componentDidMount() {
         // if (localStorage.getItem('isLoggedIn') === 'true') {
         //     auth.renewSession()
@@ -31,6 +55,7 @@ const Topnav = observer(class Topnav extends React.Component {
             if (auth.profile) {
                 if (!this.state.setProfile) {
                     this.setState({profile: auth.profile, setProfile: true})
+                    this.tryRegister()
                 }
             } else {
             }
@@ -50,6 +75,57 @@ const Topnav = observer(class Topnav extends React.Component {
         auth.logout()
         this.setState({setProfile: false, profile: false})
         history.push('/')
+    }
+
+    tryRegister() {
+        // This should be fairly secure since nothing is changing data, and this way it will be webpacked
+        fetch('http://localhost:8080/api/tryRegister', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify({
+                userName: this.state.profile.nickname,
+                firstName: this.state.profile.given_name,
+                lastName: this.state.profile.family_name,
+                picture: this.state.profile.picture
+            })
+        })
+        .then((res) => {
+            return res.json()
+        })
+        .then((res) => {
+            console.log(JSON.stringify(res))
+            if (res.created) {
+                console.log('I was created')
+                fetch('http://localhost:8080/api/leaderBoard?raw=true')
+                .then((res) => {
+                    return res.json()
+                })
+                .then((res) => {
+                    let tempItems = []
+                    res.forEach((e, i) => {
+                        tempItems.push({
+                            firstName: e.firstName,
+                            lastName: e.lastName,
+                            userName: e.userName,
+                            points: e.allPoints
+                        })
+                    })
+                    tempItems.sort(this.compareValues('allPoints', 'desc'))
+                    store.tableData = tempItems
+                    console.log(tempItems)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            } else {
+                console.log('I existed already')
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
 
     render() {
@@ -84,7 +160,6 @@ const Topnav = observer(class Topnav extends React.Component {
                         Sign in <FontAwesomeIcon icon="sign-in-alt" />
                     </a> }
                 </div>
-                <p>{store.theStore[0]}</p>
             </nav>
         )
         return sendIt
