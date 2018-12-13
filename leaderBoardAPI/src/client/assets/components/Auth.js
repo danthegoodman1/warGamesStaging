@@ -12,7 +12,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'udwargames.auth0.com',
     clientID: 'sy7XLoi84pzt8W7ktC6HAtr7yWRSfZDg',
-    redirectUri: 'http://localhost:8080/callback',
+    redirectUri: 'http://udwargames.com/callback',
     responseType: 'token id_token',
     scope: 'openid profile'
   });
