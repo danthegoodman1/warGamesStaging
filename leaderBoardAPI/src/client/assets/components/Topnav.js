@@ -79,7 +79,7 @@ const Topnav = observer(class Topnav extends React.Component {
 
     tryRegister() {
         // This should be fairly secure since nothing is changing data, and this way it will be webpacked
-        fetch('http://localhost:8080/api/tryRegister', {
+        fetch('http://udwargames.com/api/tryRegister', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
@@ -98,7 +98,7 @@ const Topnav = observer(class Topnav extends React.Component {
             console.log(JSON.stringify(res))
             if (res.created) {
                 console.log('I was created')
-                fetch('http://localhost:8080/api/leaderBoard?raw=true')
+                fetch('http://udwargames.com/api/leaderBoard?raw=true')
                 .then((res) => {
                     return res.json()
                 })

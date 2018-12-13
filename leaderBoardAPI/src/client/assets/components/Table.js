@@ -37,7 +37,7 @@ export default class Table extends React.Component {
 
     componentDidMount() {
         // console.log('fetching')
-        // fetch('http://localhost:8080/api/leaderBoard?raw=true')
+        // fetch('http://udwargames.com/api/leaderBoard?raw=true')
         // .then((res) => {
         //     console.log(res)
         //     return res.json()

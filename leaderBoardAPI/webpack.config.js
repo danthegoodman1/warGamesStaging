@@ -33,7 +33,7 @@ module.exports = {
     port: 3000,
     open: false,
     proxy: {
-      '/api': 'http://localhost:8080'
+      '/api': 'http://udwargames.com'
     },
     host: '0.0.0.0'
   },

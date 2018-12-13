@@ -60,7 +60,7 @@ const Tabination = observer(class Tabination extends React.Component {
     }
 
     fetchData() {
-        fetch('http://localhost:8080/api/leaderBoard?raw=true')
+        fetch('http://udwargames.com/api/leaderBoard?raw=true')
         .then((res) => {
             return res.json()
         })
@@ -84,7 +84,7 @@ const Tabination = observer(class Tabination extends React.Component {
     }
 
     fetchDataUser(userName) {
-        fetch(`http://localhost:8080/api/leaderBoard/${userName}?raw=true`)
+        fetch(`http://udwargames.com/api/leaderBoard/${userName}?raw=true`)
         .then((res) => {
             return res.json()
         })
@@ -100,7 +100,7 @@ const Tabination = observer(class Tabination extends React.Component {
     }
 
     fetchDataEpisode(episodeID) {
-        fetch(`http://localhost:8080/api/leaderBoard/episode/${episodeID}?raw=true`)
+        fetch(`http://udwargames.com/api/leaderBoard/episode/${episodeID}?raw=true`)
         .then((res) => {
             return res.json()
         })
