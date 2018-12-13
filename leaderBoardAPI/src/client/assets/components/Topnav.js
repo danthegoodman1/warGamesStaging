@@ -2,6 +2,8 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Auth from './Auth'
 import history from './history'
+import { observer } from 'mobx-react'
+import sample from './sampleStore'
 
 const auth = new Auth()
 
@@ -10,7 +12,7 @@ const auth = new Auth()
  * @param caret (Boolean) whether the last character should have the vim caret
  * @param extraMessage (String) extra message to say
  */
-export default class Topnav extends React.Component {
+const Topnav = observer(class Topnav extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -82,9 +84,12 @@ export default class Topnav extends React.Component {
                         Sign in <FontAwesomeIcon icon="sign-in-alt" />
                     </a> }
                 </div>
+                <p>{store.theStore[0]}</p>
             </nav>
         )
         return sendIt
 
     }
-}
+})
+
+export default Topnav
