@@ -1,0 +1,16 @@
+{
+  "name": "episode1",
+  "version": "1.0.0",
+  "description": "meep",
+  "main": "pointTestAPI.js",
+  "scripts": {
+    "start": "node pointTestAPI.js"
+  },
+  "keywords": [],
+  "author": "Dan Goodman",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}

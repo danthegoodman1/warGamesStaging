@@ -5,6 +5,11 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
+app.route('/')
+.get((req, res, next) => {
+    res.send('We gucci gam')
+})
+
 app.route('/cat')
 .post((req, res, next) => {
     console.log('post')
@@ -21,6 +26,6 @@ app.route('/:path')
     res.send(readFile)
 })
 
-app.listen(8082, () => {
+app.listen(8080, () => {
     console.log('yup')
 })
