@@ -2,7 +2,7 @@
 
 Welcome to the game.
 
-The war games are a series of episodes in which each player or team is both the blue team and the red team for attack-defense style competitions.
+The war games are a series of episodes in which each player or team is either the blue team, the red team, or both, for attack-defense style competitions.
 
 ## Table of Contents
 
