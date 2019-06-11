@@ -4,7 +4,7 @@
   "description": "meep",
   "main": "pointTestAPI.js",
   "scripts": {
-    "start": "node pointTestAPI.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "Dan Goodman",
