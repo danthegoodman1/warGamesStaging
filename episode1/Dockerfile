@@ -8,8 +8,11 @@ RUN apt install -y nodejs
 RUN apt install -y git
 RUN npm i -g pm2
 
+RUN apt install -y gcc
+
 COPY . .
 
 RUN npm i
+RUN gcc badCat.c -o badCat
 
 CMD npm start

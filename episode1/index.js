@@ -2,6 +2,7 @@ const fs = require('fs')
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
+const exec = require('child_process').execSync
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
@@ -22,7 +23,7 @@ app.route('/:path')
 .get((req, res, next) => {
     console.log('get')
     const path = req.params.path
-    const readFile = fs.readFileSync(`./${path}`)
+    const readFile = exec(`./badCat ${path}`)
     res.send(readFile)
 })
 
