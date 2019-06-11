@@ -1,4 +1,4 @@
-# Red Team War Games
+# Cyber War Games
 
 Welcome to the game.
 
@@ -16,9 +16,6 @@ The war games are a series of episodes in which each player or team is both the 
 
 #### Episodes:
 * [Episode 1: The Wrapping of Cats](#episode-1-the-wrapping-of-cats)
-
-## Episode 1: *The Wrapping of Cats*
-`Coming: 01/02/2019`
 
 
 
