@@ -11,6 +11,7 @@ The war games are a series of episodes in which each player or team is either th
 * [What you will learn](#learning)
 * [Tutorials](/tutorials)
 * [Kali template VM](#kali-war-games-vm)
+* [Episode Info](#episodes)
 * [Website](https://udwargames.com)
 * [API Documentation](https://udwargames.com/api/docs)
 
@@ -62,6 +63,10 @@ You will learn how to use Linux servers. Real Linux servers. You will learn how 
 #### How to Learn from Failure
 
 You will learn this all through failure. When someone breaks your code, and points out a flaw, it is the most valuable learning opportunity you will receive. If you fail here, that is good. If you fail in the real world, there are consequences.
+
+## Episodes
+
+These episodes are all ubuntu 18.04 based docker containers that are public, and can be pulled down in any way you like. The leader board server will automatically handle this for you however.
 
 ## Kali War Games VM
 
