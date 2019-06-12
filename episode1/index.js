@@ -15,7 +15,7 @@ app.route('/cat')
 .post((req, res, next) => {
     console.log('post')
     const path = req.body.path
-    const readFile = fs.readFileSync(`./${path}`)
+    const readFile = exec(`cat ./accessFiles/${path}`)
     res.send(readFile)
 })
 
@@ -23,7 +23,7 @@ app.route('/:path')
 .get((req, res, next) => {
     console.log('get')
     const path = req.params.path
-    const readFile = exec(`./badCat ${path}`)
+    const readFile = exec(`cat ./accessFiles/${path}`)
     res.send(readFile)
 })
 

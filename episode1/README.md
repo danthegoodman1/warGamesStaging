@@ -23,18 +23,18 @@ https://en.wikipedia.org/wiki/Computer_Fraud_and_Abuse_Act
 Title 18 U.S.Code Chapter 47  Part? § 1030
 
 ### Topics:
-`linux` `bash` `web` `rest api` `c` `web requests`
+`linux` `bash` `web` `rest api` `web requests`
 
 ### Scenario:
 
-You are given a binary to give API access to, `catWrapper`. This binary simply wraps the bash command, `cat`. However, it is not as robust. Using your knowledge of bash, Linux, and some C, you must allow the service to work while protecting its functionality.
+You are protecting an API that returns the file contents of a random file in the `accessFiles` folder. This API is vulnerable, and needs to maintain full functionality at all costs. Find the vulnerability in the API, and fix it to allow functionality while protecting against malicious users.
 
-## Timeline
+<!-- ## Timeline
 
-#### Development: `1 week`
+#### Development: `1 week` -->
 #### Development Hints:
 
-You are going to need to build an RESTful API. My favorite by far and I think the easiest to use too is [Express](https://expressjs.com/), a Node.js API framework.
+You may want to look into native libraries.
 
 ## Requirements
 
@@ -52,42 +52,20 @@ Prevent the points API from accessing opponents cat APIs. You are not allowed to
 
 #### Defense:
 
-You must provide API access to this `catWrapper` binary, as well as protect your server. One of the many files in the home directory is the file that the server must be able to access using a GET Request and a POST request. When the service is able to access the file, you gain points. The system randomly chooses a file so that you are unable to hardcode results. For all requests, the response must be the output of the command only. All files should be located in the home directory of your server. **You must run on port 8082**.
+You must provide API access to this `catWrapper` binary, as well as protect your server. One of the many files in the home directory is the file that the server must be able to access using a GET Request and a POST request. When the service is able to access the file, you gain points. The system randomly chooses a file so that you are unable to hardcode results. For all requests, the response must be the output of the command only. All files should be located in the home directory of your server.
 
 For the GET Request, the expected url is as follows:
-`http://{your-ip}:8082/{path-to-file}`
+`http://{your-ip}:13001/{path-to-file}`
 
 For the POST Request, the expected url and body is as follows:
 
 URL:
-`http://{your-ip}:8082/cat`
+`http://{your-ip}:13001/cat`
 
 Body:
 ```js
 {
 	"path": "{path-to-file}"
-}
-```
-
-## Source Code
-The following source code is for the binary that is expected to cat the results. This must be used.
-`catWrapper`:
-```c
-#include <stdio.h>
-#include <unistd.h>
-
-int main(int argc, char **argv) {
- char cat[] = "cat ";
- char *command;
- size_t commandLength;
-
- commandLength = strlen(cat) + strlen(argv[1]) + 1;
- command = (char *) malloc(commandLength);
- strncpy(command, cat, commandLength);
- strncat(command, argv[1], (commandLength - strlen(cat)) );
-
- system(command);
- return (0);
 }
 ```
 
