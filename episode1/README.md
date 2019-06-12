@@ -1,7 +1,7 @@
 # Red Team War Games
 ## Episode 1: *The Wrapping of Cats*
 
-### Difficulty: 2/10
+### Difficulty: `2/10`
 
 ## IMPORTANT
 
