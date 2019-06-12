@@ -14,8 +14,6 @@ Nessus will attempt to screenshot VNC servers, and bruteforce FTP servers. These
 
 **TL;DR: NEVER SCAN A DEVICE YOU ARE NOT AUTHORIZED TO**
 
-`nmap` by default is fine though...
-
 
 
 \*Computer Fraud and Abuse Act (CFAA)
