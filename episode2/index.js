@@ -27,7 +27,7 @@ app.route('/getItems')
 
 app.route('/addItem')
 .post((req, res, next) => {
-    data.push({name: req.body.name, quant: req.body.quant, item: req.body.quant})
+    data.push({name: req.body.name, quant: req.body.quant, item: req.body.quant, uid: Math.random()})
     res.send('ok')
 })
 
