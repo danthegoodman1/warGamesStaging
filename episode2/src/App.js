@@ -6,7 +6,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      items: [{name: 'hey', uid: '5454'}, {name: 'ho', uid: 'fwefw'}]
     }
   }
 
@@ -29,7 +29,7 @@ export default class App extends React.Component {
       <div className="App">
         <div className="row justify-content-center">
           <div className="col-md-8">
-            <Table items={[{name: 'hey', uid: '5454'}, {name: 'ho', uid: 'fwefw'}]} />
+            <Table items={this.state.items} />
           </div>
         </div>
       </div>
