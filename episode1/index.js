@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.route('/')
 .get((req, res, next) => {
-    res.send('We gucci gam')
+    res.send("I'm alive!")
 })
 
 app.route('/cat')

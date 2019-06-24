@@ -1,4 +1,7 @@
 # Red Team War Games
+
+---
+
 ## Episode 1: *The Wrapping of Cats*
 
 ### Difficulty: `2/10`
@@ -66,6 +69,3 @@ Body:
 	"path": "{path-to-file}"
 }
 ```
-
-## Post competition
-The winner will be determined by who ever has the most amount of points in the end. All source code will be shared by the competitors. In the event that cheating has occurred (source code does not match protection capabilities of the API), the winner will be the highest point holder with legal source code.

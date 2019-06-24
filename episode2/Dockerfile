@@ -10,18 +10,12 @@ RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 RUN echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
 RUN echo "root:l" | chpasswd
 RUN service ssh restart
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt install -y nodejs
+RUN apt install -y git
+
 COPY . .
-CMD bash ./live.sh && bash
-# RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-# RUN apt install -y nodejs
-# RUN apt install -y git
-# RUN npm i -g pm2
 
-# RUN apt install -y gcc
+RUN npm i
 
-# COPY . .
-
-# RUN npm i
-# RUN gcc badCat.c -o badCat
-
-# CMD npm start
+CMD npm start
