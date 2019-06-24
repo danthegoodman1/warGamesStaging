@@ -45,6 +45,7 @@ export default class App extends React.Component {
         <div className="App">
             <div className="row justify-content-center">
                 <div className="col-md-8">
+                    <h1>This is a Table for some company co.</h1>
                     <Table items={this.state.items} />
                 </div>
             </div>
