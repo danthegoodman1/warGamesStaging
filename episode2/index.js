@@ -4,7 +4,7 @@ const app = express()
 const exec = require('child_process').execSync
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
-app.use(express.static('public'))
+app.use(express.static('./build'))
 
 app.route('/hi')
 .get((req, res, next) => {
