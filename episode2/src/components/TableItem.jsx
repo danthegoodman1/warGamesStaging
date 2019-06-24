@@ -1,5 +1,7 @@
 import React from 'react'
 
+import {store, globalBus} from '../store'
+
 export default class App extends React.Component {
     constructor(props) {
         super(props)
@@ -13,22 +15,12 @@ export default class App extends React.Component {
     }
 
     _handleClick = () => {
-        console.log('hey')
-        fetch('http://localhost:8080/hi')
-        .then((res) => {
-            if (res.status < 300 && res.status >= 200) {
-                console.log('good')
-            } else {
-                console.log('bad')
-            }
-        })
-        .catch((json) => {
-        })
+        globalBus.emit('delItem', this.props.uid)
     }
 
     render(){
         return (
-            <tr key={this.props.id}>
+            <tr key={this.props.uid}>
                 <td>{this.props.name}</td>
                 <td>{this.props.name}</td>
                 <td>{this.props.name}</td>

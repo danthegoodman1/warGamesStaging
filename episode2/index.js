@@ -18,6 +18,12 @@ app.route('/hi')
     res.send('hey')
 })
 
+app.route('/getItems')
+.get((req, res, next) => {
+    console.log('sending db items')
+    res.json({items: [{name: 'test1', uid: 'test1'}, {name: 'test2', uid: 'test2'}]})
+})
+
 app.listen(8080, () => {
     console.log('yup')
 })

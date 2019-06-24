@@ -26,7 +26,7 @@ export default class App extends React.Component {
                         <th>Action</th>
                     </tr>
                     {this.props.items.map((element) => (
-                        <TableItem id={element.id} name={element.name} />
+                        <TableItem uid={element.uid} name={element.name} />
                     ))}
                 </tbody>
             </table>
