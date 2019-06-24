@@ -20,7 +20,7 @@ export default class App extends React.Component {
 
     render(){
         return (
-            <tr key={this.props.uid}>
+            <tr>
                 <td>{this.props.name}</td>
                 <td>{this.props.name}</td>
                 <td>{this.props.name}</td>
