@@ -13,25 +13,31 @@ export default class App extends React.Component {
         globalBus.on('delItem', (uid) => {
             console.log(uid)
         })
+
+        setInterval(() => {
+            this.getItems()
+        }, 1000)
     }
 
-    deleteItem() {
+    deleteItem = () => {
 
     }
 
-    componentWillMount() {
+    getItems = () => {
         fetch('http://localhost:8080/getItems')
         .then((res) => {
             return res.json()
         })
         .then((json) => {
-            console.log('here is fetch:')
-            console.log(JSON.stringify(json))
-            this.setState({items: json.items})
+            this.setState({items: json.data})
         })
         .catch((err) => {
             console.error(err)
         })
+    }
+
+    componentWillMount() {
+        this.getItems()
     }
 
     render(){

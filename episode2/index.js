@@ -6,6 +6,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(express.static('./build'))
 
+let data = [{name: 'test1', uid: 'test1', quant: 4, item: 'wjho carew'}]
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -20,8 +22,13 @@ app.route('/hi')
 
 app.route('/getItems')
 .get((req, res, next) => {
-    console.log('sending db items')
-    res.json({items: [{name: 'test1', uid: 'test1'}, {name: 'test2', uid: 'test2'}]})
+    res.json({data})
+})
+
+app.route('/addItem')
+.post((req, res, next) => {
+    data.push({name: req.body.name, quant: req.body.quant, item: req.body.quant})
+    res.send('ok')
 })
 
 app.listen(8080, () => {

@@ -22,8 +22,8 @@ export default class App extends React.Component {
         return (
             <tr>
                 <td>{this.props.name}</td>
-                <td>{this.props.name}</td>
-                <td>{this.props.name}</td>
+                <td>{this.props.item}</td>
+                <td>{this.props.quant}</td>
                 <td>
                     <button className="btn-danger" style={{borderRadius: '7px'}} onClick={this._handleClick}>X</button>
                 </td>
