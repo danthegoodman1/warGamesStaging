@@ -45,7 +45,7 @@ Points will be based on 2 factors, blue team points and red team points. Blue te
 
 #### Reporting:
 
-You will report all attacks on [this attack report google form](https://goo.gl/forms/m3CJSw4wYZuicbFI2). Anytime you make an intrusion, lateral movement, process migration, privilege escallation, persistence, website defacement, file system deletion, etc., you should fill out the form. It is how your Red Team points will be calculated.
+You will report all attacks on a copy of this google form [this attack report google form](https://goo.gl/forms/m3CJSw4wYZuicbFI2). Anytime you make an intrusion, lateral movement, process migration, privilege escallation, persistence, website defacement, file system deletion, etc., you should fill out the form. It is how your Red Team points will be calculated.
 
 #### Attack:
 
@@ -53,15 +53,26 @@ Prevent the points API from accessing opponents cat APIs. You are not allowed to
 
 #### Defense:
 
+<<<<<<< HEAD
 You must be able to return the contents of the requested file, as well as protect your server. One of the many files in the home directory is the file that the server must be able to access using a GET Request and a POST request. When the service is able to access the file, you gain points. The system randomly chooses a file. For all requests, the response must be the output of the command only.
 
 For the GET Request, the expected url is as follows:
 `http://{your-ip}:13001/{path-to-file}`
+=======
+You must provide API access to this `catWrapper` binary, as well as protect your server. One of the many files in the home directory is the file that the server must be able to access using a GET Request and a POST request. When the service is able to access the file, you gain points. The system randomly chooses a file so that you are unable to hardcode results. For all requests, the response must be the output of the command only. All files should be located in the home directory of your server. **You must run on port 8080**.
+
+For the GET Request, the expected url is as follows:
+`http://{your-ip}:8080/{path-to-file}`
+>>>>>>> b4a2e2da2c7cbea7b80c195ad585b15878e97c8f
 
 For the POST Request, the expected url and body is as follows:
 
 URL:
+<<<<<<< HEAD
 `http://{your-ip}:13001/cat`
+=======
+`http://{your-ip}:8080/cat`
+>>>>>>> b4a2e2da2c7cbea7b80c195ad585b15878e97c8f
 
 Body:
 ```js
