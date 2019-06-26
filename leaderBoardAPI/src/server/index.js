@@ -64,7 +64,7 @@ User.sync()
 .then(users => {
     // users.destroy({force: true})
     console.log(`\n\n${users.length} users in db\n\n`)
-    return User.findOrCreate({where: {userName: 'Admin'}, defaults: {role: 'admin', pwHash: crypto.createHash('md5').update('admin').digest('hex')}})
+    return User.findOrCreate({where: {userName: 'admin'}, defaults: {role: 'admin', pwHash: crypto.createHash('md5').update('admin').digest('hex')}})
 })
 .then(([user, created]) => {
     if (created) {
@@ -210,28 +210,21 @@ Episode Specific Points: ${JSON.stringify(user.episodePoints)}\n\n`
     }
 })
 
-app.route('/api/tryRegister')
+app.route('/auth/login')
 .post((req, res, next) => {
-    User.findOrCreate({where: {userName: req.body.userName}, defaults: {
-        userName: req.body.userName,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        allPoints: 0,
-        episodePoints: {
-            episode1: 0
-        },
-        episodeInfo: {
-            episode1: {
-
-            }
-        }
-    }})
-    .spread((user, created) => {
-        if(created) {
-            res.status(201).json({created: true})
+    if (!req.body.username || !req.body.pwHash) {
+        res.status(400).json({message: 'username and password hash required'})
+    }
+    User.findOne({where: {userName: req.body.username}})
+    .then((userInfo) => {
+        if (req.body.pwHash === userInfo.pwHash) {
+            res.status(200).json({message: 'logged in'})
         } else {
-            res.status(200).json({created: false})
+            res.status(400).json({message: 'invalid password'})
         }
+    })
+    .catch((err) => {
+        console.error(err)
     })
 })
 
@@ -405,6 +398,6 @@ setInterval(() => {
 
 // API Listen
 
-app.listen(80, () => {
+app.listen(8080, () => {
     console.log('Listening on port 8080!')
 })
