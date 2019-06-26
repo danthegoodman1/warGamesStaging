@@ -5,6 +5,7 @@ const request = require('request-promise')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
 const rateLimit = require("express-rate-limit")
+const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost',
@@ -42,57 +43,35 @@ const User = sequelize.define('user', {
         allowNull: false,
         unique: true
     },
-    allPoints: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
-    },
-    episodePoints: {
-        type: Sequelize.JSON,
-        defaultValue: {}
-    },
     episodeInfo: {
         type: Sequelize.JSON,
         defaultValue: {}
+    },
+    role: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    pwHash: {
+        type: Sequelize.STRING,
+        defaultValue: null
     }
 })
 
 User.sync()
 .then(() => {
-    // return User.create({
-    //     firstName: 'Dan',
-    //     lastName: 'Goodman',
-    //     userName: 'danthegoodman',
-    //     allPoints: 0,
-    //     episodeInfo: {
-    //         episode1: {
-    //             ip: 'none'
-    //         }
-    //     },
-    //     episodePoints: {
-    //         episode1: 0
-    //     }
-    // })
-    // return User.findOne({where: {userName: 'dgoodman'}})
-    // return User.findOrCreate({
-    //     where: {username: 'example'},
-    //     defaults: {
-    //         userName: 'example',
-    //         firstName: 'example',
-    //         lastName: 'example',
-    //         episodePoints: {
-    //             episode1: 0
-    //         },
-    //         allPoints: 0
-    //     }
-    // })
     return User.findAll()
 })
-// .spread((user, created) => {
-//     console.log(created)
-// })
 .then(users => {
     // users.destroy({force: true})
     console.log(`\n\n${users.length} users in db\n\n`)
+    return User.findOrCreate({where: {userName: 'Admin'}, defaults: {role: 'admin', pwHash: crypto.createHash('md5').update('admin').digest('hex')}})
+})
+.then(([user, created]) => {
+    if (created) {
+        console.log('created the admin user')
+    } else {
+        console.log('admin user already existed')
+    }
 })
 .catch((err) => {
     if (err.name === 'SequelizeUniqueConstraintError') {
@@ -120,7 +99,7 @@ const limiter = rateLimit({
 //  apply to all requests
 app.use(limiter)
 
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+// app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Leader Board API
 
@@ -192,22 +171,6 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*")
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
     next()
-})
-
-// Begin Login
-app.get('/callback', (req, res, next) => {
-    console.log('queries incoming')
-    console.log(req.query)
-    console.log(req.url)
-    res.redirect('/')
-})
-
-// End Login
-
-app.route('/api/test')
-.get((req, res, next) => {
-    console.log('got request')
-    res.send('got requests')
 })
 
 app.route('/api/leaderBoard')
