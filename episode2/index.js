@@ -20,7 +20,6 @@ app.use(function (req, res, next) {
 })
 
 app.route("/hi").get((req, res, next) => {
-  console.log("efie")
   res.send("hey")
 })
 
@@ -48,5 +47,5 @@ app.route("/delItem").post((req, res, next) => {
 })
 
 app.listen(8080, () => {
-  console.log("yup")
+  console.log("Listening on port 8080")
 })
