@@ -224,6 +224,44 @@ app.route('/auth/login')
         }
     })
     .catch((err) => {
+        res.status(400).json({message: 'Invalid credentials'})
+        console.error(err)
+    })
+})
+
+app.route('/auth/register')
+.post((req, res, next) => {
+    if (!req.body.username || !req.body.pwHash) {
+        res.status(400).json({message: 'username and password hash required'})
+    }
+    User.findOrCreate({where: {userName: req.body.username, pwHash: req.body.pwHash}, defaults: {role: 'unassigned', firstName: req.body.firstname, lastName: req.body.lastname}})
+    .then(([user, created]) => {
+        if (created) {
+            res.status(200).json({message: 'User successfully registered'})
+        } else {
+            res.status(400).json({message: 'User already exists!'})
+        }
+    })
+    .catch((err) => {
+        res.status(500).json({message: 'error'})
+        console.error(err)
+    })
+})
+
+app.route('/auth/changePassword')
+.post((req, res, next) => {
+    if (!req.body.username || !req.body.oldPwHash) {
+        res.status(400).json({message: 'username and password hash required'})
+    }
+    User.findOne({where: {userName: req.body.username, pwHash: req.body.oldPwHash}})
+    .then((user) => {
+        return User.update({pwHash: req.body.newPwHash}, {where: {userName: req.body.username, pwHash: req.body.oldPwHash}, returning: true, plain: true})
+    })
+    .then((result) => {
+        res.status(200).json({message: 'Changed password'})
+    })
+    .catch((err) => {
+        res.status(500).json({message: 'Invalid credentials'})
         console.error(err)
     })
 })
